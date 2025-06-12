@@ -11,10 +11,8 @@ orders = pd.read_sql_query("SELECT * FROM Orders", conn)
 items = pd.read_sql_query("SELECT * FROM Items", conn)
 
 # Merge the tables
-df = orders.merge(sales, on="sales_id") \
-           .merge(customers, on="customer_id") \
-           .merge(items, on="item_id")
-
+df = orders.merge(sales, on="sales_id").merge(customers, on="customer_id").merge(items, on="item_id")
+           
 # Filter by age and quantity non-null
 df = df[(df["age"].between(18, 35)) & (df["quantity"].notnull())]
 
@@ -24,12 +22,11 @@ df_sum = df.groupby(["customer_id", "age", "item_name"], as_index=False)["quanti
 # Filtering zero quantities
 df_sum = df_sum[df_sum["quantity"] > 0]
 
-# Rename and convert quantity to integer
+# Renaming and converting quantity to integer
 df_sum.columns = ["Customer", "Age", "Item", "Quantity"]
 df_sum["Quantity"] = df_sum["Quantity"].astype(int)
 
 # Savin output in CSV file format
 df_sum.to_csv("output_pandas.csv", sep=';', index=False)
-
 
 conn.close()
