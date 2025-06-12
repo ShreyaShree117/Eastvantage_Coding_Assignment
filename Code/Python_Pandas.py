@@ -19,17 +19,17 @@ df = orders.merge(sales, on="sales_id") \
 df = df[(df["age"].between(18, 35)) & (df["quantity"].notnull())]
 
 # Group by customer, age, item and sum quantity
-summary = df.groupby(["customer_id", "age", "item_name"], as_index=False)["quantity"].sum()
+df_sum = df.groupby(["customer_id", "age", "item_name"], as_index=False)["quantity"].sum()
 
 # Filtering zero quantities
-summary = summary[summary["quantity"] > 0]
+df_sum = df_sum[df_sum["quantity"] > 0]
 
 # Rename and convert quantity to integer
-summary.columns = ["Customer", "Age", "Item", "Quantity"]
-summary["Quantity"] = summary["Quantity"].astype(int)
+df_sum.columns = ["Customer", "Age", "Item", "Quantity"]
+df_sum["Quantity"] = df_sum["Quantity"].astype(int)
 
 # Savin output in CSV file format
-summary.to_csv("output_pandas.csv", sep=';', index=False)
+df_sum.to_csv("output_pandas.csv", sep=';', index=False)
 
 
 conn.close()
