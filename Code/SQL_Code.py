@@ -22,7 +22,7 @@ HAVING SUM(o.quantity) > 0
 ORDER BY c.customer_id, i.item_name;
 """
 
-# Saving results in csv format
+# Saving results in csv file format
 df = pd.read_sql_query(sql_query, conn)
 df.to_csv("../output/output_sql.csv", sep=';', index=False)
 
