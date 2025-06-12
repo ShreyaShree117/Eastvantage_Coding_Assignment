@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 
 # Connection to the  database
-conn = sqlite3.connect("DataEngineerETLassignment.db")
+conn = sqlite3.connect("../data/DataEngineerETLassignment.db")
 
 # SQL query to get total quantities by customer (age 18–35) and item
 sql_query = """
